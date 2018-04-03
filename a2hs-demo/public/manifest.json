@@ -2,8 +2,8 @@
   "name": "PWA Sample",
   "short_name": "PWA Sample",
   "start_url": "/",
-  "theme_color": "#dc143c",
-  "background_color": "#dc143c",
+  "theme_color": "#f44336",
+  "background_color": "#ffffff",
   "display": "standalone",
   "icons": [{
     "src": "icon.png",
