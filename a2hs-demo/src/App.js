@@ -7,26 +7,15 @@ import gerNewStories from './getNewStories';
 
 import AppBar from './AppBar';
 import StoryList from './StoryList';
-import Modal from 'material-ui/Modal';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import PromotionModal from './PromotionModal';
+
+const EVENT_BEFORE_INSTALL_PROMPT = 'beforeinstallprompt';
 
 const theme = createMuiTheme({
   palette: {
     primary: red,
   },
 });
-
-function getModalStyle() {
-  const top = 25;
-  const left = 0;
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-  };
-}
 
 const styles = theme => ({
   paper: {
@@ -78,6 +67,12 @@ class App extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._stopBannerDisplay);
+    window.removeEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._loggingShowPrompt);
+    window.removeEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._deferredPrompt);
+  }
+
   handleAddClick = () => {
     if (this.state.e !== undefined) {
       const e = this.state.e;
@@ -103,72 +98,57 @@ class App extends Component {
   };
 
   stopShowPrompt = () => {
-    window.addEventListener('beforeinstallprompt', e => {
-      console.log('Stop banner display');
-      e.preventDefault();
-      return false;
-    });
+    window.addEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._stopBannerDisplay);
   };
 
   loggingShowPrompt = () => {
-    window.addEventListener('beforeinstallprompt', e => {
-      e.userChoice.then(choiceResult => {
-        console.log(choiceResult.outcome);
-        if (choiceResult.outcome === 'dismissed') {
-          console.log('User cancelled.');
-        } else {
-          console.log('User added.');
-        }
-      });
-    });
+    window.addEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._loggingShowPrompt);
   };
 
   deferredPrompt = () => {
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault();
-      this.setState({ e });
-      this.handleOpen();  // 事前訴求モーダルを表示
-      return false;
+    window.addEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._deferredPrompt);
+  };
+
+  _stopBannerDisplay = e => {
+    console.log('Stop banner display');
+    e.preventDefault();
+    return false;
+  };
+
+  _loggingShowPrompt = e => {
+    e.userChoice.then(choiceResult => {
+      console.log(choiceResult.outcome);
+      if (choiceResult.outcome === 'dismissed') {
+        console.log('User cancelled.');
+      } else {
+        console.log('User added.');
+      }
     });
   };
 
+  _deferredPrompt = e => {
+    e.preventDefault();
+    this.setState({ e });
+    this.handleOpen();  // 事前訴求モーダルを表示
+    return false;
+  };
+
   render() {
-    const { classes } = this.props;
+    const {
+      classes,
+    } = this.props;
 
     return (
       <MuiThemeProvider theme={theme}>
         <AppBar />
         <StoryList stories={this.state.stories} />
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+        <PromotionModal
           open={this.state.open}
-          onClose={this.handleClose}
-        >
-          <Card style={getModalStyle()} className={classes.card}>
-            <CardMedia
-              className={classes.media}
-              image="/serval.jpg"
-              title="Serval"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="headline" component="h2">
-                A2HSテスト
-              </Typography>
-              <Typography component="p">
-                ホーム画面追加するととてもいいことあるよ！
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button onClick={this.handleClose} size="small" color="primary">
-                Cancel
-              </Button>
-              <Button onClick={this.handleAddClick} size="small" color="primary">
-                Add to homescreen!
-              </Button>
-            </CardActions>
-          </Card>
-        </Modal>
+          classMedia={classes.media}
+          classCard={classes.card}
+          handleClose={this.handleClose}
+          handleAddClick={this.handleAddClick}
+        />
       </MuiThemeProvider>
     );
   }
