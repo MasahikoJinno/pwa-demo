@@ -1,11 +1,11 @@
-import React from "react";
-import Modal from "material-ui/Modal";
-import Button from "material-ui/Button";
-import Typography from "material-ui/Typography";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import React from 'react';
+import Modal from 'material-ui/Modal';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 const getModalStyle = () => {
-  const top = 20;
+  const top = 25;
   const left = 0;
 
   return {
@@ -30,9 +30,7 @@ const PromotionModal = props => {
           <Typography gutterBottom variant="headline" component="h2">
             A2HSテスト
           </Typography>
-          <Typography component="p">
-            ホーム画面追加するととてもいいことあるよ！
-          </Typography>
+          <Typography component="p">ホーム画面追加するととてもいいことあるよ！</Typography>
         </CardContent>
         <CardActions>
           <Button onClick={handleClose} size="small" color="primary">

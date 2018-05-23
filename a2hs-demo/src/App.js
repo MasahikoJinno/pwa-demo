@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
-import { withStyles } from "material-ui/styles";
-import red from "material-ui/colors/red";
-import gerNewStories from "./getNewStories";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
+import red from 'material-ui/colors/red';
+import gerNewStories from './getNewStories';
 
-import AppBar from "./AppBar";
-import StoryList from "./StoryList";
-import PromotionModal from "./PromotionModal";
+import AppBar from './AppBar';
+import StoryList from './StoryList';
+import PromotionModal from './PromotionModal';
 
-const EVENT_BEFORE_INSTALL_PROMPT = "beforeinstallprompt";
+const EVENT_BEFORE_INSTALL_PROMPT = 'beforeinstallprompt';
 
 const theme = createMuiTheme({
   palette: {
@@ -19,14 +19,14 @@ const theme = createMuiTheme({
 
 const styles = theme => ({
   paper: {
-    position: "absolute",
+    position: 'absolute',
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4
   },
   card: {
-    position: "absolute",
+    position: 'absolute',
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -68,18 +68,9 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener(
-      EVENT_BEFORE_INSTALL_PROMPT,
-      this._stopBannerDisplay
-    );
-    window.removeEventListener(
-      EVENT_BEFORE_INSTALL_PROMPT,
-      this._loggingShowPrompt
-    );
-    window.removeEventListener(
-      EVENT_BEFORE_INSTALL_PROMPT,
-      this._deferredPrompt
-    );
+    window.removeEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._stopBannerDisplay);
+    window.removeEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._loggingShowPrompt);
+    window.removeEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._deferredPrompt);
   }
 
   handleAddClick = () => {
@@ -87,10 +78,10 @@ class App extends Component {
       const e = this.state.e;
       e.prompt();
       e.userChoice.then(choiceResult => {
-        if (choiceResult.outcome === "dismissed") {
-          console.log("User cancelled");
+        if (choiceResult.outcome === 'dismissed') {
+          console.log('User cancelled');
         } else {
-          console.log("User added");
+          console.log('User added');
         }
         this.setState({ e: null });
       });
@@ -107,17 +98,11 @@ class App extends Component {
   };
 
   stopShowPrompt = () => {
-    window.addEventListener(
-      EVENT_BEFORE_INSTALL_PROMPT,
-      this._stopBannerDisplay
-    );
+    window.addEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._stopBannerDisplay);
   };
 
   loggingShowPrompt = () => {
-    window.addEventListener(
-      EVENT_BEFORE_INSTALL_PROMPT,
-      this._loggingShowPrompt
-    );
+    window.addEventListener(EVENT_BEFORE_INSTALL_PROMPT, this._loggingShowPrompt);
   };
 
   deferredPrompt = () => {
@@ -125,7 +110,7 @@ class App extends Component {
   };
 
   _stopBannerDisplay = e => {
-    console.log("Stop banner display");
+    console.log('Stop banner display');
     e.preventDefault();
     return false;
   };
@@ -133,10 +118,10 @@ class App extends Component {
   _loggingShowPrompt = e => {
     e.userChoice.then(choiceResult => {
       console.log(choiceResult.outcome);
-      if (choiceResult.outcome === "dismissed") {
-        console.log("User cancelled.");
+      if (choiceResult.outcome === 'dismissed') {
+        console.log('User cancelled.');
       } else {
-        console.log("User added.");
+        console.log('User added.');
       }
     });
   };
