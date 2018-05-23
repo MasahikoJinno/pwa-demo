@@ -10,18 +10,12 @@ const getModalStyle = () => {
 
   return {
     top: `${top}%`,
-    left: `${left}%`,
+    left: `${left}%`
   };
 };
 
 const PromotionModal = props => {
-  const {
-    open,
-    classMedia,
-    classCard,
-    handleClose,
-    handleAddClick,
-  } = props;
+  const { open, classMedia, classCard, handleClose, handleAddClick } = props;
 
   return (
     <Modal
@@ -31,18 +25,12 @@ const PromotionModal = props => {
       onClose={handleClose}
     >
       <Card style={getModalStyle()} className={classCard}>
-        <CardMedia
-          className={classMedia}
-          image="/serval.jpg"
-          title="Serval"
-        />
+        <CardMedia className={classMedia} image="/serval.jpg" title="Serval" />
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
             A2HSテスト
           </Typography>
-          <Typography component="p">
-            ホーム画面追加するととてもいいことあるよ！
-          </Typography>
+          <Typography component="p">ホーム画面追加するととてもいいことあるよ！</Typography>
         </CardContent>
         <CardActions>
           <Button onClick={handleClose} size="small" color="primary">

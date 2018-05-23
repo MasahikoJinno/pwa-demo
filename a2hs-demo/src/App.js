@@ -13,8 +13,8 @@ const EVENT_BEFORE_INSTALL_PROMPT = 'beforeinstallprompt';
 
 const theme = createMuiTheme({
   palette: {
-    primary: red,
-  },
+    primary: red
+  }
 });
 
 const styles = theme => ({
@@ -23,7 +23,7 @@ const styles = theme => ({
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing.unit * 4
   },
   card: {
     position: 'absolute',
@@ -31,11 +31,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
-    maxWidth: 345,
+    maxWidth: 350
   },
   media: {
-    height: 200,
-  },
+    height: 200
+  }
 });
 
 class App extends Component {
@@ -45,19 +45,19 @@ class App extends Component {
       stories: [],
       e: {},
       open: false, // Modalの表示
-      isBannerShow: true,  // trueだと事前訴求を行う
-      isPromptShow: true, // trueだとApp Install Bannerが表示される
+      isBannerShow: true, // trueだと事前訴求を行う
+      isPromptShow: true // trueだとApp Install Bannerが表示される
     };
   }
 
   componentDidMount() {
     gerNewStories().then(data => {
       this.setState({
-        stories: data,
-      })
+        stories: data
+      });
     });
     if (!this.state.isPromptShow) {
-      this.stopShowPrompt();  // App Install Bannerを表示しない
+      this.stopShowPrompt(); // App Install Bannerを表示しない
     } else {
       if (this.state.isBannerShow) {
         this.deferredPrompt(); // 事前訴求を行う
@@ -129,14 +129,12 @@ class App extends Component {
   _deferredPrompt = e => {
     e.preventDefault();
     this.setState({ e });
-    this.handleOpen();  // 事前訴求モーダルを表示
+    this.handleOpen(); // 事前訴求モーダルを表示
     return false;
   };
 
   render() {
-    const {
-      classes,
-    } = this.props;
+    const { classes } = this.props;
 
     return (
       <MuiThemeProvider theme={theme}>
@@ -155,7 +153,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(App);

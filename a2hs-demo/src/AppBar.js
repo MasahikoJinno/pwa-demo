@@ -7,8 +7,8 @@ import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   root: {
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 function SimpleAppBar(props) {
@@ -27,7 +27,7 @@ function SimpleAppBar(props) {
 }
 
 SimpleAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(SimpleAppBar);
