@@ -1,27 +1,21 @@
-import React from 'react';
-import Modal from 'material-ui/Modal';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import React from "react";
+import Modal from "material-ui/Modal";
+import Button from "material-ui/Button";
+import Typography from "material-ui/Typography";
+import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 
 const getModalStyle = () => {
-  const top = 25;
+  const top = 20;
   const left = 0;
 
   return {
     top: `${top}%`,
-    left: `${left}%`,
+    left: `${left}%`
   };
 };
 
 const PromotionModal = props => {
-  const {
-    open,
-    classMedia,
-    classCard,
-    handleClose,
-    handleAddClick,
-  } = props;
+  const { open, classMedia, classCard, handleClose, handleAddClick } = props;
 
   return (
     <Modal
@@ -31,11 +25,7 @@ const PromotionModal = props => {
       onClose={handleClose}
     >
       <Card style={getModalStyle()} className={classCard}>
-        <CardMedia
-          className={classMedia}
-          image="/serval.jpg"
-          title="Serval"
-        />
+        <CardMedia className={classMedia} image="/serval.jpg" title="Serval" />
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
             A2HSテスト
